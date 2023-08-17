@@ -102,11 +102,11 @@ router.patch("/:id/likes",  async (req, res) => {
         { likes: post.likes },
         { new: true } // to return the updated value 
       );
-  
-      res.status(200).json(updatePost)
+      const updatedposts = await Post.find()
+      res.status(200).json(updatedposts)
       
     } catch (error) {
-       res.status(400).send(error.message)
+        res.status(400).send(error.message)
     }
   })
   
