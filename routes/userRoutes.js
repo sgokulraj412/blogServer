@@ -54,8 +54,8 @@ router.get("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { username, email } = req.body
-        const updatedUser = await User.findByIdAndUpdate(id, { username, email })
+        const { username, email, mobile, gender, images: profilephoto } = req.body
+        const updatedUser = await User.findByIdAndUpdate(id, { username, email, mobile, gender, profilephoto })
         const getUpdatedUser = await User.findById(id)
         res.status(200).json(getUpdatedUser)
     } catch (error) {
