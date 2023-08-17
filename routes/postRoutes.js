@@ -105,8 +105,8 @@ router.patch("/:id/likes",  async (req, res) => {
   
       res.status(200).json(updatePost)
       
-    } catch (err) {
-      res.status(404).json({ msg: err.message });
+    } catch (error) {
+       res.status(400).send(error.message)
     }
   })
   
