@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const post = await Post.findById(id).populate("author", ["username", "email"])
+        const post = await Post.findById(id).populate("author", ["username", "email", "profilephoto"])
         res.status(200).json(post)
     } catch (e) {
         res.status(400).send(e.message)
