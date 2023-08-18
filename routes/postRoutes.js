@@ -110,14 +110,13 @@ router.patch("/:id/likes", async (req, res) => {
     }
 })
 
-router.patch("/:id/comment", async (req, res) => {
+router.patch("/:id/comments", async (req, res) => {
     try {
-        const {id} = req.params;
-        const {commentDetails} = req.body;
-        console.log(commentDetails)
+        const { id } = req.params;
+        const { loggedUser, username, email, comment } = req.body;
         const post = await Post.findById(id);
-        post.comments.push(commentDetails)
-        const updatedpost = await Post.findByIdAndUpdate(id, {comments : post.comments})
+        post.comments.push({ loggedUser, username, email, comment })
+        const updatedpost = await Post.findByIdAndUpdate(id, { comments: post.comments })
         const updatedposts = await Post.find()
         res.status(200).json(updatedposts)
 
