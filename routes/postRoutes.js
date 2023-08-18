@@ -114,7 +114,10 @@ router.patch("/:id/comment", async (req, res) => {
     try {
         const {id} = req.params;
         const {commentDetails} = req.body;
-        const post = await Post.findByIdAndUpdate(id, {comments : commentDetails})
+        console.log(commentDetails)
+        const post = await Post.findById(id);
+        post.comments.push(commentDetails)
+        const updatedpost = await Post.findByIdAndUpdate(id, {comments : post.comments})
         const updatedposts = await Post.find()
         res.status(200).json(updatedposts)
 
