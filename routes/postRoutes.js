@@ -84,32 +84,44 @@ router.delete("/:id", async (req, res) => {
 })
 
 //Update Likes
-router.patch("/:id/likes",  async (req, res) => {
+router.patch("/:id/likes", async (req, res) => {
     try {
-      const { id } = req.params;
-      const {userId} = req.body;
-      const post = await Post.findById(id);
-      const isLiked = post.likes.get(userId);
-  
-      if (isLiked) {
-        post.likes.delete(userId);
-      } else {
-        post.likes.set(userId, true);
-      }
-  
-      const updatePost = await Post.findByIdAndUpdate(
-        id,
-        { likes: post.likes },
-        { new: true } // to return the updated value 
-      );
-      const updatedposts = await Post.find()
-      res.status(200).json(updatedposts)
-      
+        const { id } = req.params;
+        const { userId } = req.body;
+        const post = await Post.findById(id);
+        const isLiked = post.likes.get(userId);
+
+        if (isLiked) {
+            post.likes.delete(userId);
+        } else {
+            post.likes.set(userId, true);
+        }
+
+        const updatePost = await Post.findByIdAndUpdate(
+            id,
+            { likes: post.likes },
+            { new: true } // to return the updated value 
+        );
+        const updatedposts = await Post.find()
+        res.status(200).json(updatedposts)
+
     } catch (error) {
         res.status(400).send(error.message)
     }
-  })
-  
+})
+
+router.patch("/:id/comment", async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {commentDetails} = req.body;
+        const post = await Post.findByIdAndUpdate(id, {comments : commentDetails})
+        const updatedposts = await Post.find()
+        res.status(200).json(updatedposts)
+
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
 
 
 
