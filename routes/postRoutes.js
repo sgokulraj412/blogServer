@@ -103,7 +103,7 @@ router.patch("/:id/likes", async (req, res) => {
             { new: true } // to return the updated value 
         );
         const updatedposts = await Post.find()
-        res.status(200).json(updateposts)
+        res.status(200).json(updatedposts)
 
     } catch (error) {
         res.status(400).send(error.message)
